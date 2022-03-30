@@ -1,0 +1,442 @@
+<html>
+    <!--
+        This file is copyright 2022 Kay Rhodes (a.k.a. masukomi)
+        and is distributed under the Creative Commons Zero
+        license https://creativecommons.org/share-your-work/public-domain/cc0/
+        NO RIGHTS ARE RESERVED. Do whatever you want with it.
+
+        PLEASE TAKE THIS AND MAKE IT BETTER.
+
+
+        The Spiral Dice Symbols are Copyright ©2021 Spiral Games, LLC
+        and distributed under the Creative Commons By Attribution 4.0
+        License
+        https://creativecommons.org/licenses/by/4.0/
+
+        https://spiraldice.com
+    -->
+    <head>
+        <title>Sapio Dice Roller</title>
+    </head>
+    <style>
+    body {
+      background: #cccccc;
+    }
+    .footer {
+      /*position: fixed;*/
+      left: 0;
+      bottom: 0;
+      margin-left: 2rem;
+      margin-top: 30rem;
+    }
+    #results_description{
+        margin-top: 1rem;
+        margin-left: 1rem;
+    }
+    #summary{
+        margin-top: 1rem;
+        font-weight: bold;
+    }
+    .copyright{
+      font-size: 60%;
+    }
+    </style>
+    <script language="JavaScript">
+        var face1=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 0 hits 0 spares 0 spirals"
+           xmlns="http://www.w3.org/2000/svg"
+           width="129.155" height="123.323"
+           xmlns:v="https://vecta.io/nano"><path d="M28.257 118.823L5.5
+           48.786 65.077 5.5l59.578 43.286-22.757 70.037z"
+           fill="#fff"/><path d="M28.257 118.823L5.5 48.786 65.077
+           5.5l59.578 43.286-22.757 70.037z" fill-opacity="0"
+           stroke="#000" stroke-width="9" stroke-linejoin="round"/></svg>`
+        var face2=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 0 hits 1 spare 0 spirals"
+           id="face_2" xmlns="http://www.w3.org/2000/svg"
+           width="129.155" height="123.323"
+           xmlns:v="https://vecta.io/nano"><path d="M28.256 118.822L5.5
+           48.785 65.077 5.5l59.578 43.285-22.757 70.037z"
+           fill="#fff"/><path d="M28.256 118.822L5.5 48.785 65.077
+           5.5l59.578 43.285-22.757 70.037z" fill-opacity="0"
+           stroke="#000" stroke-width="9" stroke-linejoin="round"/><path
+           d="M67.241 50.435v17.647l15.296 8.831-2.252
+           3.902-15.26-8.81-.516.297-.003-.006-14.792 8.54-2.253-3.902
+           15.281-8.823h-.006V50.435h4.505zm-.033
+           17.676h-.015l.008.013.007-.013zm-4.418
+           0h-.011l.002.005.009-.005z"/></svg>`
+        var face3=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 1 hit 0 spares 0 spirals"
+           id="face_3" xmlns="http://www.w3.org/2000/svg"
+           width="129.155" height="123.323"
+           xmlns:v="https://vecta.io/nano"><path d="M28.257 118.823L5.5
+           48.786 65.078 5.5l59.577 43.286-22.756 70.037z"
+           fill="#fff"/><path d="M28.257 118.823L5.5 48.786 65.078
+           5.5l59.577 43.286-22.756 70.037z" fill-opacity="0"
+           stroke="#000" stroke-width="9" stroke-linejoin="round"/><path
+           d="M84.697 65.271l-9.463-1.988
+           3.141-7.992c.079-.239.04-.517-.159-.676a.67.67 0 0
+           0-.716-.079l-8.388
+           4.491-4.294-7.672c-.119-.198-.357-.357-.596-.318s-.438.199-.517.438l-2.266
+           8.309-9.303-2.824c-.239-.079-.517 0-.675.239a.6.6 0 0 0 0
+           .716l5.049 7.157-8.749
+           3.736c-.239.12-.397.357-.357.637s.239.477.477.556l9.463
+           1.988-3.141 7.951c-.079.239-.04.517.159.676a.67.67 0 0 0
+           .716.079l8.389-4.493 4.294
+           7.712c.12.199.319.318.556.318h.08c.239-.04.438-.198.517-.438l2.266-8.308
+           9.302 2.823c.239.079.517 0 .676-.239a.6.6 0 0 0
+           0-.716l-5.049-7.156
+           8.707-3.775c.24-.12.398-.358.358-.637-.041-.238-.24-.477-.477-.516z"/></svg>`
+        var face4=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 2 hits 0 spares 1 spiral"
+           id="face_4" xmlns="http://www.w3.org/2000/svg"
+           width="129.155" height="123.323"
+           xmlns:v="https://vecta.io/nano"><path d="M28.256 118.823L5.5
+           48.786 65.077 5.5l59.578 43.286-22.757 70.037z"
+           fill="#fff"/><path d="M28.256 118.823L5.5 48.786 65.077
+           5.5l59.578 43.286-22.757 70.037z" fill-opacity="0"
+           stroke="#000" stroke-width="9" stroke-linejoin="round"/><path
+           d="M56.91 50.716l-9.463-1.988
+           3.14-7.992c.08-.239.041-.517-.158-.676a.67.67 0 0
+           0-.716-.079l-8.388
+           4.492-4.294-7.672c-.12-.199-.357-.358-.596-.319a.65.65 0 0
+           0-.518.438l-2.265 8.309-9.303-2.824c-.239-.079-.517
+           0-.675.239a.6.6 0 0 0 0 .716l5.048 7.157-8.748
+           3.736c-.239.12-.397.357-.357.637s.239.477.477.556l9.462
+           1.988-3.14 7.951c-.079.239-.04.517.159.676a.67.67 0 0 0
+           .716.079l8.389-4.493 4.294
+           7.712c.12.199.319.318.556.318h.079c.24-.04.438-.198.518-.437l2.265-8.309
+           9.303 2.823c.239.08.517 0 .675-.239a.6.6 0 0 0
+           0-.716l-5.048-7.156
+           8.707-3.775c.239-.12.398-.358.357-.637-.04-.238-.239-.477-.476-.516zm36.573
+           3.065c3.419-4.934-.404-8.764-1.494-10.017-3.123-2.86-8.318-2.794-11.842-.494-11.135
+            7.272-3.331 26.353 12.117 23.544.508-.092 4.188-1.008
+            7.37-3.344 4.533-3.913 5.807-7.709 6.445-13.251l4.24.175c.468
+            14.541-17.285 27.378-31.655 17.796-13.432-8.956-9.118-28.815
+            5.218-30.892 15.022-2.176 20.895 17.299 9.078 22.368-4.124
+            1.769-9.25.227-11.07-4.175-1.271-3.07-1.061-5.954 1.362-7.378
+            5.507-2.881 8.745 4.133 4.705 6.341-2.13 2.693 3.923 1.831
+            5.527-.673zM80.687 87.41l-9.463-1.988
+            3.14-7.992c.08-.239.041-.517-.158-.675a.67.67 0 0
+            0-.716-.08l-8.388
+            4.492-4.294-7.672c-.12-.199-.357-.357-.596-.319a.65.65 0 0
+            0-.518.438l-2.265 8.309-9.303-2.824c-.239-.079-.517
+           0-.675.24a.6.6 0 0 0 0 .716l5.048 7.156-8.748
+            3.736c-.239.12-.397.358-.357.637a.69.69 0 0 0 .477.556l9.462
+            1.988-3.14 7.951c-.079.239-.04.517.159.676a.67.67 0 0 0
+                .716.079l8.389-4.493 4.294
+            7.712c.12.199.319.319.556.319h.08a.65.65 0 0 0
+                .517-.438l2.266-8.309 9.302 2.824c.239.079.517 0
+                .675-.24a.6.6 0 0 0 0-.716l-5.048-7.156
+            8.707-3.775c.239-.12.398-.357.357-.637-.04-.238-.239-.477-.476-.516z"/></svg>`
+        var face5=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 1 hit 0 spares 1 spiral"
+           version="1.1"
+           id="face_5" xmlns="http://www.w3.org/2000/svg"
+           xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+           width="129.155" height="123.323" viewBox="0, 0, 129.155,
+           123.323"> <g id="Layer_1" transform="translate(-175.592,
+           -147.177)"> <g> <path d="M203.849,266 L181.092,195.963
+           L240.669,152.677 L300.247,195.963 L277.49,266 z"
+           fill="#FFFFFF"/> <path d="M203.849,266 L181.092,195.963
+           L240.669,152.677 L300.247,195.963 L277.49,266 z"
+           fill-opacity="0" stroke="#000000" stroke-width="9"
+           stroke-linejoin="round"/> </g> <path d="M241.103,197.893
+           L231.64,195.905 L234.78,187.913 C234.859,187.674
+           234.821,187.396 234.622,187.237 C234.423,187.079
+           234.145,187.039 233.906,187.158 L225.518,191.65
+           L221.224,183.978 C221.104,183.779 220.867,183.621
+           220.627,183.659 C220.388,183.7 220.189,183.858 220.11,184.097
+           L217.844,192.406 L208.542,189.582 C208.303,189.503
+           208.025,189.582 207.867,189.822 C207.708,190.02 207.708,190.339
+           207.867,190.537 L212.915,197.694 L204.167,201.43
+           C203.928,201.55 203.77,201.787 203.81,202.067 C203.85,202.345
+           204.049,202.544 204.287,202.623 L213.749,204.611
+           L210.609,212.562 C210.53,212.801 210.569,213.079
+           210.768,213.238 C210.966,213.396 211.244,213.437
+           211.483,213.317 L219.873,208.824 L224.167,216.536
+           C224.287,216.735 224.486,216.855 224.723,216.855
+           L224.802,216.855 C225.041,216.814 225.24,216.656
+           225.319,216.417 L227.585,208.108 L236.888,210.932
+           C237.127,211.011 237.405,210.932 237.563,210.692
+           C237.722,210.494 237.722,210.175 237.563,209.976
+           L232.514,202.82 L241.222,199.045 C241.461,198.925
+           241.62,198.688 241.579,198.408 C241.539,198.17 241.34,197.931
+           241.103,197.892 z" fill="#000000" id="Layer_1"/> <path
+           d="M258.49,232.714 C261.909,227.78 258.086,223.951
+           256.996,222.697 C253.872,219.837 248.678,219.904
+           245.154,222.204 C234.019,229.475 241.823,248.557
+           257.271,245.747 C257.779,245.656 261.459,244.739
+           264.641,242.404 C269.174,238.49 270.448,234.694 271.086,229.152
+           L275.326,229.327 C275.793,243.868 258.041,256.705
+           243.671,247.123 C230.239,238.167 234.553,218.309
+           248.889,216.231 C263.911,214.055 269.783,233.53 257.966,238.599
+           C253.843,240.368 248.717,238.826 246.896,234.425
+           C245.626,231.354 245.836,228.47 248.258,227.046
+           C253.766,224.165 257.003,231.179 252.964,233.387
+           C250.833,236.08 256.887,235.218 258.491,232.714 z"
+           fill="#000000" id="Layer_1"/> </g> </svg>`
+        var face6=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 0 hits 0 spares 1 spiral"
+           id="face_6" version="1.1"
+           xmlns="http://www.w3.org/2000/svg"
+           xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+           width="129.155" height="123.323" viewBox="0, 0, 129.155,
+           123.323"> <g id="Layer_1" transform="translate(-320.48,
+           -143.869)"> <g> <path d="M348.736,262.692 L325.98,192.655
+           L385.557,149.369 L445.134,192.655 L422.378,262.692 z"
+           fill="#FFFFFF"/> <path d="M348.736,262.692 L325.98,192.655
+           L385.557,149.369 L445.134,192.655 L422.378,262.692 z"
+           fill-opacity="0" stroke="#000000" stroke-width="9"
+           stroke-linejoin="round"/> </g> <path d="M391.468,211.543
+           C394.888,206.61 391.065,202.78 389.974,201.527 C386.851,198.666
+           381.656,198.733 378.133,201.033 C366.998,208.304
+           374.802,227.386 390.25,224.577 C390.757,224.485 394.438,223.569
+           397.62,221.233 C402.153,217.319 403.427,213.524 404.065,207.981
+           L408.305,208.157 C408.772,222.697 391.02,235.535 376.65,225.953
+           C363.218,216.997 367.532,197.138 381.868,195.06 C396.89,192.884
+           402.762,212.359 390.945,217.428 C386.822,219.197
+           381.695,217.655 379.875,213.254 C378.605,210.184
+                       378.815,207.299 381.237,205.875 C386.745,202.994
+                       389.982,210.008 385.943,212.216 C383.812,214.909
+                       389.866,214.047 391.47,211.544 z" fill="#000000"
+                       id="Layer_1"/> </g> </svg>`
+        var face7=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 0 hits 2 spares 0 spirals"
+           id="face_7" version="1.1"
+           xmlns="http://www.w3.org/2000/svg"
+           xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+           width="129.155" height="123.323" viewBox="0, 0, 129.155,
+           123.323"> <g id="Layer_1" transform="translate(-18.796,
+           -281.479)"> <g> <g> <path d="M47.053,400.302 L24.296,330.265
+           L83.873,286.979 L143.451,330.265 L120.694,400.302 z"
+           fill="#FFFFFF"/> <path d="M47.053,400.302 L24.296,330.265
+           L83.873,286.979 L143.451,330.265 L120.694,400.302 z"
+           fill-opacity="0" stroke="#000000" stroke-width="9"
+           stroke-linejoin="round"/> </g> <path d="M68.836,318.683
+           L68.836,336.33 L84.132,345.161 L81.879,349.063 L66.62,340.253
+           L66.104,340.55 L66.1,340.544 L51.309,349.084 L49.056,345.182
+           L64.337,336.359 L64.33,336.359 L64.33,318.683 L68.836,318.683 z
+           M68.803,336.359 L68.788,336.359 L68.795,336.372 L68.803,336.359
+           z M64.385,336.359 L64.373,336.359 L64.376,336.364
+           L64.385,336.359 z" fill="#000000"/> <path d="M100.21,345.203
+           L100.21,362.85 L115.506,371.681 L113.253,375.583
+           L97.993,366.773 L97.477,367.07 L97.474,367.064 L82.682,375.604
+                           L80.43,371.702 L95.711,362.879 L95.704,362.879
+                           L95.704,345.203 L100.21,345.203 z
+                           M100.177,362.879 L100.161,362.879
+                           L100.169,362.892 L100.177,362.879 z
+                           M95.758,362.879 L95.747,362.879 L95.75,362.884
+                           L95.758,362.879 z" fill="#000000"/> </g> </g>
+                           </svg>`
+        var face8=face2.replace("face_2", "face_8");
+        var face9=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 1 hit 1 spare 0 spirals"
+           id="face_9" xmlns="http://www.w3.org/2000/svg"
+           width="129.155" height="123.323"
+           xmlns:v="https://vecta.io/nano"><path d="M28.257 118.822L5.5
+           48.785 65.078 5.5l59.577 43.285-22.756 70.037z"
+           fill="#fff"/><path d="M28.257 118.822L5.5 48.785 65.078
+           5.5l59.577 43.285-22.756 70.037z" fill-opacity="0"
+           stroke="#000" stroke-width="9" stroke-linejoin="round"/><path
+           d="M64.188 52.7l-9.463-1.988
+           3.14-7.992c.08-.239.041-.517-.158-.676a.67.67 0 0
+           0-.716-.079l-8.388
+           4.492-4.294-7.672c-.12-.199-.357-.358-.596-.319a.65.65 0 0
+           0-.518.438l-2.265 8.309-9.303-2.824c-.239-.079-.517
+           0-.675.239a.6.6 0 0 0 0 .716L36 52.501l-8.748
+           3.736c-.239.12-.397.357-.357.637s.239.477.477.556l9.462
+           1.988-3.14 7.951c-.079.239-.04.517.159.676a.67.67 0 0 0
+           .716.079l8.389-4.493 4.294
+           7.712c.12.199.319.318.556.318h.079c.24-.04.438-.198.518-.437l2.266-8.309
+           9.302 2.823c.239.08.517 0 .675-.239a.6.6 0 0 0 0-.716L55.6
+           57.627l8.707-3.775c.239-.12.398-.357.357-.637-.04-.238-.239-.477-.476-.516zm20.255
+           10.305v17.647l15.296 8.831-2.253
+           3.902-15.26-8.81-.515.297-.004-.006-14.791 8.54-2.253-3.902
+           15.281-8.823h-.007V63.005h4.506zm-.033
+           17.676h-.015l.007.013.008-.013zm-4.418
+           0h-.012l.003.005.009-.005z"/></svg>`
+        var face10=`<svg
+           role="img" aria-label="a Spiral Die face"
+           aria-description="Spiral Die face with 2 hits 0 spares 0 spirals"
+           id="face_10" xmlns="http://www.w3.org/2000/svg"
+           width="129.155" height="123.323"
+           xmlns:v="https://vecta.io/nano"><path d="M28.256 118.823L5.5
+           48.785 65.077 5.5l59.577 43.285-22.756 70.038z"
+           fill="#fff"/><path d="M28.256 118.823L5.5 48.785 65.077
+           5.5l59.577 43.285-22.756 70.038z" fill-opacity="0"
+           stroke="#000" stroke-width="9" stroke-linejoin="round"/><path
+           d="M60.879 54.685l-9.462-1.988
+           3.14-7.992c.079-.239.04-.517-.159-.675a.67.67 0 0
+           0-.716-.08l-8.387 4.492L41
+           40.77c-.119-.199-.357-.357-.596-.319a.65.65 0 0
+           0-.517.438l-2.266 8.309-9.302-2.824c-.24-.079-.518
+           0-.676.24a.6.6 0 0 0 0 .716l5.049 7.156-8.748
+           3.736c-.239.12-.398.358-.358.637s.24.477.477.556l9.463
+           1.988-3.14 7.951c-.08.24-.041.518.158.676a.67.67 0 0 0
+           .716.079l8.39-4.493 4.294
+           7.712c.119.199.318.319.556.319h.079a.65.65 0 0 0
+           .517-.438l2.266-8.309 9.302 2.824c.239.079.517 0 .676-.24a.6.6
+           0 0 0 0-.715l-5.049-7.157
+            8.708-3.775c.239-.12.397-.357.357-.637-.041-.238-.239-.477-.477-.516zm39.655
+            25.185l-9.462-1.988
+            3.14-7.992c.079-.239.04-.517-.158-.675a.67.67 0 0
+            0-.716-.079l-8.388
+            4.491-4.294-7.672c-.12-.199-.358-.357-.597-.318s-.438.199-.517.438l-2.266
+            8.308-9.302-2.823c-.239-.079-.517 0-.676.239a.6.6 0 0 0 0
+                .716l5.049 7.156-8.748
+            3.737c-.239.119-.398.357-.357.636s.239.477.476.556l9.463
+            1.988-3.14 7.952c-.079.239-.041.517.158.675a.67.67 0 0 0
+                .716.079l8.39-4.492 4.294
+            7.712c.119.198.318.318.556.318h.079c.239-.04.438-.199.517-.438l2.266-8.308
+           9.302 2.823c.24.079.518 0 .676-.239a.6.6 0 0 0
+            0-.716l-5.049-7.156
+            8.708-3.776c.239-.119.397-.357.357-.637-.04-.237-.239-.476-.477-.515z"/></svg>`
+        var face11=face5.replace("face_5", "face_11");
+        var face12=face6.replace("face_6", "face_12");
+
+        var numToSvg = {
+            1: face1,
+            2: face2,
+            3: face3,
+            4: face4,
+            5: face5,
+            6: face6,
+            7: face7,
+            8: face8,
+            9: face9,
+            10: face10,
+            11: face11,
+            12: face12
+        }
+
+        var numToStats = {
+          1: {"hits": 0, "spares": 0, "spirals": 0},
+          2: {"hits": 0, "spares": 1, "spirals": 0},
+          3: {"hits": 1, "spares": 0, "spirals": 0},
+          4: {"hits": 2, "spares": 0, "spirals": 1},
+          5: {"hits": 1, "spares": 0, "spirals": 1},
+          6: {"hits": 0, "spares": 0, "spirals": 1},
+          7: {"hits": 0, "spares": 2, "spirals": 0},
+          8: {"hits": 0, "spares": 1, "spirals": 0},
+          9: {"hits": 1, "spares": 1, "spirals": 0},
+          10: {"hits": 2, "spares": 0, "spirals": 0},
+          11: {"hits": 1, "spares": 0, "spirals": 1},
+          12: {"hits": 0, "spares": 0, "spirals": 1}
+        }
+
+        function getRollResults(numDice){
+            var results = []
+            for (let i = 1; i <= numDice; i++){
+                var  roll = Math.floor(Math.random() * 12 + 1)
+                results.push( roll );
+            }
+            return results;
+        }
+        function displayResults(results){
+            var hits = 0;
+            var spares = 0;
+            var spirals = 0;
+            var resultHTML="";
+            for (i=0; i < results.length; i++) {
+                resultHTML += numToSvg[results[i]];
+                hits += numToStats[results[i]]["hits"]
+                spares += numToStats[results[i]]["spares"]
+                spirals += numToStats[results[i]]["spirals"]
+            }
+
+            var resultTotalsHTML=resultsTotalsString(hits, spares, spirals);
+
+            document.getElementById("results_display").innerHTML=resultHTML;
+            document.getElementById("results_description").innerHTML=resultTotalsHTML;
+        }
+
+        function resultsTotalsString(hits, spares, spirals) {
+          var hitsWord = hits == 1 ? "hit" : "hits";
+          var resultsTotalsHTML="<div id='hits'>Hits: "+hits+"</div>"
+          resultsTotalsHTML +="\n<div id='spares'>Spares: "+spares+"</div>"
+          resultsTotalsHTML +="\n<div id='spirals'>Spirals: "+spirals+"</div>"
+          var result = spares - spirals;
+          if ( result == 0 ) {
+            resultsTotalsHTML +="\n<div id='summary'>" + hits + " " + hitsWord + " &mdash; with no Spares / Spirals </div>"
+          } else if (result > 0 ){
+            resultsTotalsHTML +="\n<div id='summary'>" + hits + " " + hitsWord + " &mdash; " + result + " Spares</div>"
+          } else {
+            result = result * -1;
+            resultsTotalsHTML +="\n<div id='summary'>" + hits + " " + hitsWord + " &mdash; " + result + " Spirals</div>"
+          }
+          return resultsTotalsHTML;
+
+        }
+
+        function rollDice(numDice){
+            var results = getRollResults(numDice);
+            displayResults(results);
+        }
+
+        // 2, 8
+        // 6, 12
+        // 5, 11
+    </script>
+
+
+    <body>
+        <div id="instructions">
+          <h2><a href="https://spiraldice.com/">Spiral Dice</a> Roller</h2>
+            <p>Click the number of dice you want to roll.</p>
+        </div>
+
+        <form id="rollerForm" action="#">
+            <input type="button" value="Roll 1!" onClick="rollDice(1)"/>
+            <input type="button" value="Roll 2!" onClick="rollDice(2)"/>
+            <input type="button" value="Roll 3!" onClick="rollDice(3)"/>
+            <input type="button" value="Roll 4!" onClick="rollDice(4)"/>
+            <input type="button" value="Roll 5!" onClick="rollDice(5)"/>
+            <input type="button" value="Roll 6!" onClick="rollDice(6)"/>
+        </form>
+
+        <div id="results_display"></div>
+        <div id="results_description"></div>
+
+
+
+        <div class="footer">
+          <p>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="21.35" height="23.749" viewBox="0, 0, 85.398, 94.995">
+  <g id="Layer_1">
+    <g id="Layer_1">
+      <path d="M84.601,74.898 C84.601,74.796 70.402,30.597 70.402,30.597 C68.8,25.898 64.503,22.597 59.402,22.597 L54.703,22.597 L54.703,28.898 L59.402,28.898 C61.703,28.898 63.703,30.398 64.402,32.499 L74.601,64.198 C72.999,63.597 71.202,63.3 69.3,63.3 L15.8,63.3 C13.999,63.3 12.198,63.698 10.499,64.198 L20.8,32.499 C21.499,30.3 23.499,28.898 25.699,28.898 L30.398,28.898 L30.398,22.597 L25.699,22.597 C20.699,22.597 16.3,25.796 14.801,30.597 C14.801,30.597 0.602,74.796 0.602,74.898 C0.203,76.296 0,77.699 0,79.097 C0,87.796 7.199,94.995 15.898,94.995 L69.5,94.995 C78.301,94.995 85.398,87.796 85.398,79.097 C85.3,77.699 85,76.199 84.601,74.898 z M69.402,88.699 L15.8,88.699 C10.499,88.699 6.198,84.398 6.198,79.097 C6.198,73.797 10.499,69.496 15.8,69.496 L69.402,69.496 C74.703,69.496 79.003,73.695 79.003,79.097 C78.999,84.398 74.703,88.699 69.402,88.699 z" fill="#000000"/>
+      <path d="M68.999,75.898 L56.601,75.898 C54.902,75.898 53.402,77.296 53.402,79.097 C53.402,80.796 54.8,82.296 56.601,82.296 L69.101,82.296 C70.8,82.296 72.3,80.898 72.3,79.097 C72.202,77.398 70.8,75.898 68.999,75.898 z" fill="#000000"/>
+      <path d="M30.203,42.199 L40.703,53.5 C41.203,54 41.902,54.301 42.601,54.301 C43.3,54.301 44,54 44.5,53.5 L54.898,42.301 C55.597,41.5 55.796,40.403 55.398,39.5 C54.999,38.5 53.999,37.899 52.999,37.899 L48.398,37.899 L48.401,2.602 C48.401,1.102 47.202,0 45.8,0 L39.401,0 C37.901,0 36.8,1.199 36.8,2.602 L36.8,37.801 L32.198,37.801 C31.198,37.801 30.198,38.402 29.8,39.402 C29.3,40.301 29.499,41.5 30.202,42.199 z" fill="#000000"/>
+    </g>
+  </g>
+</svg>
+          This page works offline! Save this page to your computer as a <tt>.html</tt> file
+          and open it in your browser anytime.
+          <br />To learn more about Spiral Dice, or buy physical dice visit
+          <a href="https://spiraldice.com/">spiraldice.com</a></p>
+          <p class="copyright">
+           The Spiral Dice symbols are Copyright 2021 Spiral Games, LLC
+           and distributed under the
+        <a href="https://creativecommons.org/licenses/by/4.0/
+          ">Creative Commons By Attribution 4.0 License</a>. This dice roller is Copyright 2022 Kay
+        Rhodes (a.k.a masukomi) and distributed under the <a
+              href="https://creativecommons.org/share-your-work/public-domain/cc0/">Creative
+              Commons Zero License</a>. Please take it and make it
+            better. </p>
+          </p>
+        </div>
+
+
+
+
+    </body>
+</html>
