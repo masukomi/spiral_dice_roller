@@ -40,6 +40,9 @@
     .copyright{
       font-size: 60%;
     }
+    #spares, #spirals {
+      /*float: left;*/
+    }
     </style>
     <script language="JavaScript">
         var face1=`<svg
@@ -361,17 +364,17 @@
 
         function resultsTotalsString(hits, spares, spirals) {
           var hitsWord = hits == 1 ? "hit" : "hits";
-          var resultsTotalsHTML="<div id='hits'>Hits: "+hits+"</div>"
-          resultsTotalsHTML +="\n<div id='spares'>Spares: "+spares+"</div>"
-          resultsTotalsHTML +="\n<div id='spirals'>Spirals: "+spirals+"</div>"
+          var resultsTotalsHTML="<span id='hits'>Hits: "+hits+"</span>"
+          resultsTotalsHTML +="\n &ndash; <span id='spares'>Spares: "+spares+"</span>"
+          resultsTotalsHTML +="\n &ndash; <span id='spirals'>Spirals: "+spirals+"</span>"
           var result = spares - spirals;
           if ( result == 0 ) {
-            resultsTotalsHTML +="\n<div id='summary'>" + hits + " " + hitsWord + " &mdash; with no Spares / Spirals </div>"
+            resultsTotalsHTML +="\n<div id='summary'>Final Result: " + hits + " " + hitsWord + " &mdash; with no Spares / Spirals </div>"
           } else if (result > 0 ){
-            resultsTotalsHTML +="\n<div id='summary'>" + hits + " " + hitsWord + " &mdash; " + result + " Spares</div>"
+            resultsTotalsHTML +="\n<div id='summary'>Final Result: " + hits + " " + hitsWord + " &mdash; " + result + " Spares</div>"
           } else {
             result = result * -1;
-            resultsTotalsHTML +="\n<div id='summary'>" + hits + " " + hitsWord + " &mdash; " + result + " Spirals</div>"
+            resultsTotalsHTML +="\n<div id='summary'>Final Result: " + hits + " " + hitsWord + " &mdash; " + result + " Spirals</div>"
           }
           return resultsTotalsHTML;
 
