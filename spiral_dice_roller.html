@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <!--
         This file is copyright 2022 Kay Rhodes (a.k.a. masukomi)
@@ -17,11 +18,15 @@
     -->
     <head>
         <title>Sapio Dice Roller</title>
-    </head>
+        <link rel="manifest" href="manifest.webmanifest">
+        <meta name="theme-color" content="#7f8080"/>
+        <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     body {
       background: #cccccc;
     }
+    *{ box-sizing: border-box }
     .footer {
       /*position: fixed;*/
       left: 0;
@@ -384,13 +389,51 @@
         function rollDice(numDice){
             var results = getRollResults(numDice);
             displayResults(results);
+            triggerPWAInstallPrompt();
+        }
+
+        function triggerPWAInstallPrompt(){
+            if (this.deferredPrompt != undefined) {
+                this.deferredPrompt.prompt();
+                this.deferredPrompt.userChoice.then(choice => {
+                    console.log(choice);
+                });
+                this.deferredPrompt = null;
+            }
         }
 
         // 2, 8
         // 6, 12
         // 5, 11
+        // Prompt for PWA install
+        window.addEventListener('beforeinstallprompt', e => {
+            console.log("beforeinstallprompt")
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            this.deferredPrompt = e;
+            return false;
+        });
+        // add a service worker even if we don't need one
+        // because apparently that's what PWAs need
+        //
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service_worker.js').then(function(registration) {
+                    // Registration was successful
+                    //console.log('Registered!');
+                }, function(err) {
+                // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                }).catch(function(err) {
+                    console.log(err);
+                });
+            });
+        } else {
+            console.log('service worker is not supported');
+        }
     </script>
 
+    </head>
 
     <body>
         <div id="instructions">
