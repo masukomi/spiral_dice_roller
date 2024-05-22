@@ -407,7 +407,6 @@
         // 5, 11
         // Prompt for PWA install
         window.addEventListener('beforeinstallprompt', e => {
-            console.log("beforeinstallprompt")
             e.preventDefault();
             // Stash the event so it can be triggered later.
             this.deferredPrompt = e;
@@ -420,7 +419,6 @@
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('service_worker.js').then(function(registration) {
                     // Registration was successful
-                    //console.log('Registered!');
                 }, function(err) {
                 // registration failed :(
                     console.log('ServiceWorker registration failed: ', err);
@@ -474,9 +472,7 @@
           <br />To learn more about Spiral Dice, or buy physical dice visit
           <a href="https://spiraldice.com/">spiraldice.com</a></p>
           <p class="copyright">
-           The Spiral Dice symbols are Copyright 2021 Spiral Games, LLC
-           and distributed under the
-        <a href="https://creativecommons.org/licenses/by/4.0/
+           This work includes Spiral Dice, product of Spiral Games, which are licensed for our use under the <a href="https://creativecommons.org/licenses/by/4.0/
           ">Creative Commons By Attribution 4.0 License</a>. This dice roller is Copyright 2022 Kay
         Rhodes (also known as masukomi) and distributed under the <a
               href="https://creativecommons.org/share-your-work/public-domain/cc0/">Creative
