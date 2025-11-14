@@ -14,7 +14,7 @@
         License
         https://creativecommons.org/licenses/by/4.0/
 
-        https://spiraldice.com
+        https://spiraldice.itch.io/
     -->
     <head>
         <title>Sapio Dice Roller</title>
@@ -419,6 +419,7 @@
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('service_worker.js').then(function(registration) {
                     // Registration was successful
+                    //console.log('Registered!');
                 }, function(err) {
                 // registration failed :(
                     console.log('ServiceWorker registration failed: ', err);
@@ -435,7 +436,7 @@
 
     <body>
         <div id="instructions">
-          <h2><a href="https://spiraldice.com/">Spiral Dice</a> Roller</h2>
+          <h2><a href="https://spiraldice.itch.io/">Spiral Dice</a> Roller</h2>
             <p>Click the number of dice you want to roll.</p>
         </div>
 
@@ -470,9 +471,12 @@
 </svg>
           You can add this to your phone's home screen: <a href="https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DAndroid&oco=0">Android Instructions</a>, <a href="https://www.youtube.com/watch?v=Zc_uapjKLlQ">iOS instructions</a>.
           <br />To learn more about Spiral Dice, or buy physical dice visit
-          <a href="https://spiraldice.com/">spiraldice.com</a></p>
+          <a href="https://spiraldice.itch.io/">the Spiral Dice page
+            on Itch.io</a></p>
           <p class="copyright">
-           This work includes Spiral Dice, product of Spiral Games, which are licensed for our use under the <a href="https://creativecommons.org/licenses/by/4.0/
+           The Spiral Dice symbols are Copyright 2021 Spiral Games, LLC
+           and distributed under the
+        <a href="https://creativecommons.org/licenses/by/4.0/
           ">Creative Commons By Attribution 4.0 License</a>. This dice roller is Copyright 2022 Kay
         Rhodes (also known as masukomi) and distributed under the <a
               href="https://creativecommons.org/share-your-work/public-domain/cc0/">Creative
